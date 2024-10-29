@@ -1,11 +1,232 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to my GitHub Pages site</title>
+    <title>Our Wedding Save the Date!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .engagement-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .address-group {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .address-line {
+            margin-bottom: 10px;
+        }
+
+        .city-state-zip {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .required-field::after {
+            content: "*";
+            color: #cc0000;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(74, 175, 80, 0.2);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #guestNamesContainer {
+            margin-top: 15px;
+        }
+
+        .guest-field {
+            margin-bottom: 10px;
+        }
+
+        .guest-field label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .form-section-title {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>This is my test GitHub Pages site. This site was first published 10/28/2024.</p>
-    <p>@pkalibat signing off 😊</p>
+    <div class="container">
+        <div class="header">
+            <img src="image.png" alt="Our Engagement Photo" class="engagement-photo">
+            <h1>We're Getting Married!</h1>
+            <p>Please share your contact information for our upcoming Save the Date!</p>
+        </div>
+
+        <form action="https://formspree.io/f/YOUR-FORM-ID" method="POST" id="saveTheDate">
+            <div class="form-group">
+                <label for="email" class="required-field">Email:</label>
+                <input type="email" id="email" name="email" required
+                       placeholder="email@example.com">
+            </div>
+
+            <h3 class="form-section-title">Mailing Address</h3>
+            <div class="address-group">
+                <div class="address-line">
+                    <label for="street1" class="required-field">Street Address:</label>
+                    <input type="text" id="street1" name="street1" required
+                           placeholder="Street address, P.O. box, company name">
+                </div>
+
+                <div class="address-line">
+                    <label for="street2">Apartment, suite, unit, etc. (optional):</label>
+                    <input type="text" id="street2" name="street2"
+                           placeholder="Apartment, suite, unit, building, floor, etc.">
+                </div>
+
+                <div class="city-state-zip">
+                    <div>
+                        <label for="city" class="required-field">City:</label>
+                        <input type="text" id="city" name="city" required
+                               placeholder="Enter city">
+                    </div>
+                    
+                    <div>
+                        <label for="state" class="required-field">State:</label>
+                        <input type="text" id="state" name="state" required
+                               placeholder="e.g., NY"
+                               pattern="[A-Za-z]{2}"
+                               maxlength="2"
+                               title="Please enter a two-letter state abbreviation">
+                    </div>
+                    
+                    <div>
+                        <label for="zipcode" class="required-field">ZIP Code:</label>
+                        <input type="text" id="zipcode" name="zipcode" required
+                               placeholder="e.g., 12345"
+                               pattern="[0-9]{5}"
+                               maxlength="5"
+                               title="Please enter a valid 5-digit ZIP code">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="form-section-title">Guest Information</h3>
+            <div class="form-group">
+                <label for="guests" class="required-field">Number of Guests:</label>
+                <select id="guests" name="number_of_guests" required>
+                    <option value="">Select number of guests</option>
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5 Guests</option>
+                    <option value="6">6 Guests</option>
+                </select>
+            </div>
+
+            <div id="guestNamesContainer">
+                <!-- Dynamic guest name fields will be inserted here -->
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const guestSelect = document.getElementById('guests');
+        const guestNamesContainer = document.getElementById('guestNamesContainer');
+
+        guestSelect.addEventListener('change', function() {
+            guestNamesContainer.innerHTML = '';
+            const numberOfGuests = parseInt(this.value);
+            
+            for(let i = 0; i < numberOfGuests; i++) {
+                const guestField = document.createElement('div');
+                guestField.className = 'guest-field';
+                
+                const label = document.createElement('label');
+                label.htmlFor = `guest${i + 1}`;
+                label.textContent = `Guest ${i + 1} Full Name:`;
+                label.className = 'required-field';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `guest${i + 1}`;
+                input.name = `guest${i + 1}_name`;
+                input.required = true;
+                input.placeholder = `Enter full name for Guest ${i + 1}`;
+                
+                guestField.appendChild(label);
+                guestField.appendChild(input);
+                guestNamesContainer.appendChild(guestField);
+            }
+        });
+    </script>
 </body>
 </html>
