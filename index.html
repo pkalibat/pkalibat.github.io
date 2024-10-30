@@ -3,6 +3,7 @@
 <head>
     <title>Our Wedding Save the Date!</title>
     <style>
+        /* Previous styles remain the same */
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -41,6 +42,23 @@
             margin-bottom: 20px;
         }
 
+        .checkbox-group {
+            margin: 10px 0;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
         .address-line {
             margin-bottom: 10px;
         }
@@ -67,6 +85,7 @@
 
         input[type="text"],
         input[type="email"],
+        input[type="tel"],
         input[type="number"],
         select {
             width: 100%;
@@ -77,10 +96,16 @@
             margin-bottom: 10px;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(74, 175, 80, 0.2);
+        .phone-preference {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .phone-preference label {
+            font-weight: normal;
+            margin: 0;
         }
 
         button {
@@ -92,23 +117,7 @@
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #guestNamesContainer {
-            margin-top: 15px;
-        }
-
-        .guest-field {
-            margin-bottom: 10px;
-        }
-
-        .guest-field label {
-            color: #666;
-            font-size: 0.9em;
+            margin-top: 20px;
         }
 
         .form-section-title {
@@ -118,6 +127,15 @@
             border-bottom: 2px solid #eee;
             color: #333;
         }
+
+        .alert-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -125,18 +143,46 @@
         <div class="header">
             <img src="image.png" alt="Our Engagement Photo" class="engagement-photo">
             <h1>We're Getting Married!</h1>
-            <p>Please share your contact information for our upcoming Save the Date!</p>
+            <p>Please help us keep in touch by sharing your current contact information.</p>
         </div>
 
-        <form action="https://script.google.com/macros/s/AKfycby9OtF5tjxpq_75JbThzh72-z0VN4KxSa1B31P-2LqHJ4tK5ScuzhXsF92MF-F06557/exec" method="POST" id="saveTheDate">
+        <div class="alert-box">
+            📝 Note: We understand addresses can change! If you think you might move before our wedding, please check the box below and we'll confirm your address closer to the date.
+        </div>
+
+        <form action="https://formspree.io/f/YOUR-FORM-ID" method="POST" id="saveTheDate">
+            <h3 class="form-section-title">Contact Information</h3>
+            
             <div class="form-group">
-                <label for="email" class="required-field">Email:</label>
+                <label for="email" class="required-field">Primary Email:</label>
                 <input type="email" id="email" name="email" required
                        placeholder="email@example.com">
+                <p class="info-text">This will be our primary way to send updates</p>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="required-field">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required
+                       placeholder="(123) 456-7890"
+                       pattern="[\(]\d{3}[\)] \d{3}[\-]\d{4}">
+                <div class="phone-preference">
+                    <input type="checkbox" id="textOk" name="textOk">
+                    <label for="textOk">It's okay to text me updates at this number</label>
+                </div>
             </div>
 
             <h3 class="form-section-title">Mailing Address</h3>
             <div class="address-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="moveExpected" name="moveExpected">
+                    <label for="moveExpected">I might move before the wedding</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="preferDigital" name="preferDigital">
+                    <label for="preferDigital">I prefer digital communications only (no physical mail)</label>
+                </div>
+
                 <div class="address-line">
                     <label for="street1" class="required-field">Street Address:</label>
                     <input type="text" id="street1" name="street1" required
@@ -188,10 +234,17 @@
                     <option value="5">5 Guests</option>
                     <option value="6">6 Guests</option>
                 </select>
+                <p class="info-text">Please include children in the total guest count</p>
             </div>
 
             <div id="guestNamesContainer">
                 <!-- Dynamic guest name fields will be inserted here -->
+            </div>
+
+            <div class="form-group">
+                <label for="additionalInfo">Additional Notes (optional):</label>
+                <textarea id="additionalInfo" name="additionalInfo" rows="3"
+                          placeholder="Any additional information you'd like us to know? (e.g., preferred names, dietary restrictions, etc.)"></textarea>
             </div>
 
             <button type="submit">Submit</button>
@@ -199,6 +252,7 @@
     </div>
 
     <script>
+        // Previous guest fields script remains the same
         const guestSelect = document.getElementById('guests');
         const guestNamesContainer = document.getElementById('guestNamesContainer');
 
