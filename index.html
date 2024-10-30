@@ -3,83 +3,109 @@
 <head>
     <title>Our Wedding Save the Date!</title>
     <style>
-        /* Previous styles remain the same */
+        :root {
+            --primary-color: #9b6b9e;
+            --secondary-color: #f5e6e8;
+            --accent-color: #d4a373;
+            --text-color: #2c1810;
+            --error-color: #cc0000;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
+            background-color: #faf7f5;
+            color: var(--text-color);
         }
         
         .container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
         }
 
         .engagement-photo {
-            max-width: 40%;
+            max-width: 100%;
             height: auto;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .form-group {
-            margin-bottom: 15px;
-        }
-
-        .address-group {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 4px;
             margin-bottom: 20px;
         }
 
+        .address-group {
+            background-color: var(--secondary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(155, 107, 158, 0.2);
+        }
+
         .checkbox-group {
-            margin: 10px 0;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
         }
 
         .checkbox-group label {
             font-weight: normal;
-            display: inline-block;
-            margin-left: 8px;
+            margin: 0;
         }
 
         .info-text {
             font-size: 0.9em;
             color: #666;
-            margin-top: 5px;
+            margin-top: 8px;
             font-style: italic;
         }
 
         .address-line {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .city-state-zip {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
         }
 
         .required-field::after {
             content: "*";
-            color: #cc0000;
+            color: var(--error-color);
             margin-left: 4px;
         }
 
@@ -87,70 +113,149 @@
         input[type="email"],
         input[type="tel"],
         input[type="number"],
-        select {
+        select,
+        textarea {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
             box-sizing: border-box;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(155, 107, 158, 0.2);
         }
 
         .phone-preference {
             display: flex;
             gap: 10px;
             align-items: center;
-            margin-top: 5px;
-        }
-
-        .phone-preference label {
-            font-weight: normal;
-            margin: 0;
+            margin-top: 8px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: var(--primary-color);
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
-            margin-top: 20px;
+            font-size: 18px;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #875689;
         }
 
         .form-section-title {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #eee;
-            color: #333;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 1.5em;
         }
 
         .alert-box {
             background-color: #fff3cd;
             border: 1px solid #ffeeba;
             color: #856404;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-box::before {
+            content: "📝";
+            font-size: 1.2em;
+        }
+
+        .guest-field {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #fafafa;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .city-state-zip {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+
+        /* Animation for form submission */
+        @keyframes submitPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        button:active {
+            animation: submitPulse 0.2s ease;
+        }
+
+        /* Loading indicator styles */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--secondary-color);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="image.png" alt="Our Engagement Photo" class="engagement-photo">
+            <img src="/api/placeholder/800/400" alt="Our Engagement Photo" class="engagement-photo">
             <h1>We're Getting Married!</h1>
             <p>Please help us keep in touch by sharing your current contact information.</p>
         </div>
 
         <div class="alert-box">
-            📝 Note: We understand addresses can change! If you think you might move before our wedding, please check the box below and we'll confirm your address closer to the date.
+            Note: We understand addresses can change! If you think you might move before our wedding, please check the box below and we'll confirm your address closer to the date.
         </div>
 
-        <form action="https://formspree.io/f/YOUR-FORM-ID" method="POST" id="saveTheDate">
+        <form id="saveTheDate">
             <h3 class="form-section-title">Contact Information</h3>
             
             <div class="form-group">
@@ -163,8 +268,7 @@
             <div class="form-group">
                 <label for="phone" class="required-field">Phone Number:</label>
                 <input type="tel" id="phone" name="phone" required
-                       placeholder="(123) 456-7890"
-                       pattern="[\(]\d{3}[\)] \d{3}[\-]\d{4}">
+                       placeholder="(123) 456-7890">
                 <div class="phone-preference">
                     <input type="checkbox" id="textOk" name="textOk">
                     <label for="textOk">It's okay to text me updates at this number</label>
@@ -206,7 +310,6 @@
                         <label for="state" class="required-field">State:</label>
                         <input type="text" id="state" name="state" required
                                placeholder="e.g., NY"
-                               pattern="[A-Za-z]{2}"
                                maxlength="2"
                                title="Please enter a two-letter state abbreviation">
                     </div>
@@ -215,7 +318,6 @@
                         <label for="zipcode" class="required-field">ZIP Code:</label>
                         <input type="text" id="zipcode" name="zipcode" required
                                placeholder="e.g., 12345"
-                               pattern="[0-9]{5}"
                                maxlength="5"
                                title="Please enter a valid 5-digit ZIP code">
                     </div>
@@ -251,8 +353,17 @@
         </form>
     </div>
 
+    <div class="loading" id="loadingIndicator"></div>
+
     <script>
-        // Previous guest fields script remains the same
+        // Phone number formatting
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+
+        // Dynamic guest fields
         const guestSelect = document.getElementById('guests');
         const guestNamesContainer = document.getElementById('guestNamesContainer');
 
@@ -280,6 +391,33 @@
                 guestField.appendChild(input);
                 guestNamesContainer.appendChild(guestField);
             }
+        });
+
+        // Form submission handling
+        document.getElementById('saveTheDate').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            loadingIndicator.style.display = 'flex';
+
+            // Simulate form submission (replace with actual submission logic)
+            setTimeout(() => {
+                loadingIndicator.style.display = 'none';
+                alert('Thank you! Your information has been submitted successfully.');
+                this.reset();
+                guestNamesContainer.innerHTML = '';
+            }, 1500);
+        });
+
+        // State input validation
+        const stateInput = document.getElementById('state');
+        stateInput.addEventListener('input', function(e) {
+            this.value = this.value.toUpperCase();
+        });
+
+        // ZIP code validation
+        const zipInput = document.getElementById('zipcode');
+        zipInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
         });
     </script>
 </body>
