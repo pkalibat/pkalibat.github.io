@@ -423,7 +423,7 @@ document.getElementById('saveTheDate').addEventListener('submit', function(e) {
         formData[`guest${i}Name`] = i <= numberOfGuests && guestInput ? guestInput.value : '';
     }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUdQc9daEgo4kj-JirdRImFCsosuiyNHeD1qRoptmljeeWX3gG6LS--BaxohGkijBw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbywLs0fGtsdEHVS1r_0Akf7XeVgnXrM-V7xJEi8SZTa0UWdBqEsVJfTgkaGFtWt1m_D/exec';
 
     // Using no-cors mode and different content type
     fetch(scriptURL, {
