@@ -395,30 +395,60 @@
 
         // Form submission handling
         document.getElementById('saveTheDate').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            loadingIndicator.style.display = 'flex';
+    e.preventDefault();
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    loadingIndicator.style.display = 'flex';
 
-            // Simulate form submission (replace with actual submission logic)
-            setTimeout(() => {
-                loadingIndicator.style.display = 'none';
-                alert('Thank you! Your information has been submitted successfully.');
-                this.reset();
-                guestNamesContainer.innerHTML = '';
-            }, 1500);
-        });
+    // Collect form data
+    const formData = {
+        email: document.getElementById('email').value,
+        street1: document.getElementById('street1').value,
+        street2: document.getElementById('street2').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        zipcode: document.getElementById('zipcode').value,
+        phone: document.getElementById('phone').value,
+        textOk: document.getElementById('textOk').checked ? 'Yes' : 'No',
+        moveExpected: document.getElementById('moveExpected').checked ? 'Yes' : 'No',
+        preferDigital: document.getElementById('preferDigital').checked ? 'Yes' : 'No',
+        numberOfGuests: document.getElementById('guests').value,
+        additionalInfo: document.getElementById('additionalInfo').value,
+        timestamp: new Date().toISOString()
+    };
 
-        // State input validation
-        const stateInput = document.getElementById('state');
-        stateInput.addEventListener('input', function(e) {
-            this.value = this.value.toUpperCase();
-        });
+    // Collect guest names
+    const numberOfGuests = parseInt(document.getElementById('guests').value);
+    for (let i = 1; i <= 6; i++) {
+        const guestInput = document.getElementById(`guest${i}`);
+        formData[`guest${i}Name`] = i <= numberOfGuests && guestInput ? guestInput.value : '';
+    }
 
-        // ZIP code validation
-        const zipInput = document.getElementById('zipcode');
-        zipInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '');
-        });
+    // Replace this URL with your Google Apps Script Web App URL from the deployment
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUdQc9daEgo4kj-JirdRImFCsosuiyNHeD1qRoptmljeeWX3gG6LS--BaxohGkijBw/exec';
+
+    fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        loadingIndicator.style.display = 'none';
+        if (response.ok) {
+            alert('Thank you! Your information has been submitted successfully.');
+            this.reset();
+            guestNamesContainer.innerHTML = '';
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .catch(error => {
+        loadingIndicator.style.display = 'none';
+        alert('There was a problem submitting your information. Please try again.');
+        console.error('Error:', error);
+    });
+});
     </script>
 </body>
 </html>
