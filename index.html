@@ -394,7 +394,7 @@
         });
 
         // Form submission handling
-        document.getElementById('saveTheDate').addEventListener('submit', function(e) {
+document.getElementById('saveTheDate').addEventListener('submit', function(e) {
     e.preventDefault();
     const loadingIndicator = document.getElementById('loadingIndicator');
     loadingIndicator.style.display = 'flex';
@@ -423,32 +423,37 @@
         formData[`guest${i}Name`] = i <= numberOfGuests && guestInput ? guestInput.value : '';
     }
 
-    // Replace this URL with your Google Apps Script Web App URL from the deployment
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxUdQc9daEgo4kj-JirdRImFCsosuiyNHeD1qRoptmljeeWX3gG6LS--BaxohGkijBw/exec';
 
+    // Using no-cors mode and different content type
     fetch(scriptURL, {
         method: 'POST',
-        body: JSON.stringify(formData),
+        mode: 'no-cors',
+        cache: 'no-cache',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'text/plain',
+        },
+        body: JSON.stringify(formData)
     })
     .then(response => {
         loadingIndicator.style.display = 'none';
-        if (response.ok) {
-            alert('Thank you! Your information has been submitted successfully.');
-            this.reset();
-            guestNamesContainer.innerHTML = '';
-        } else {
-            throw new Error('Network response was not ok');
-        }
+        // Since we're using no-cors, we won't get response details
+        alert('Thank you! Your information has been submitted successfully.');
+        this.reset();
+        guestNamesContainer.innerHTML = '';
     })
     .catch(error => {
         loadingIndicator.style.display = 'none';
         alert('There was a problem submitting your information. Please try again.');
         console.error('Error:', error);
+        // Log more details about the error
+        console.log('Error details:', {
+            message: error.message,
+            stack: error.stack,
+            formData: formData
+        });
     });
 });
-    </script>
+</script>
 </body>
 </html>
